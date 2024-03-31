@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function abc(value){
+            window.location.replace("{{ url_for('main') }}?date=" + value);
+        }
+    </script>
+</head>
+<body>
+<label>Дата: </label>
+<select onchange="abc(value)">
+    <option value=""></option>
+    {% for item in dates %}
+    <option value="{{ item }}">{{ item }}</option>
+    {% endfor %}
+</select>
+<table>
+    <p>Дата:{{ request.args.get('date') }}</p>
+    <tbody>
+    {% for item in (data or [" ", " ", " "]) %}
+    <tr>
+        {% for v in item %}
+            <td bgcolor={{ "yellow" if v[1] == 'y' else "gray" }}>{{ v[0] }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <h3> Номера комнат: {{ data2 }}</h3>
+    <h3> Количество комнат: {{ data2|length }}</h3>
+</body>
+</html>
